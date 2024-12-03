@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\Ethik.Utility\Src\Ethik.Utility.Api\Ethik.Utility.Api.csproj" />
+    <ProjectReference Include="..\ProductService.Infrastructure\ProductService.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
