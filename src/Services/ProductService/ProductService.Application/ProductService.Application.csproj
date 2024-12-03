@@ -6,4 +6,18 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Food\Queries\" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MediatR" Version="12.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\..\..\..\Ethik.Utility\Src\Ethik.Utility.Common\Ethik.Utility.Common.csproj" />
+	  <ProjectReference Include="..\..\..\..\..\..\Ethik.Utility\Src\Ethik.Utility.Data\Ethik.Utility.Data.csproj" />
+		<ProjectReference Include="..\ProductService.Domain\ProductService.Domain.csproj" />
+	</ItemGroup>
+
 </Project>

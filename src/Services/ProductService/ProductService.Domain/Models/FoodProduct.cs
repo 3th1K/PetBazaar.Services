@@ -2,5 +2,5 @@
 
 public class FoodProduct : Product
 {
-    public string Ingredients { get; set; }
+    public string Ingredients { get; set; } = null!;
 }

@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService.Infrastructu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethik.Utility.Data", "..\..\Ethik.Utility\Src\Ethik.Utility.Data\Ethik.Utility.Data.csproj", "{45EB9A1C-22DC-4457-B8EF-EC71F8D94CF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductService.Api", "src\Services\ProductService\ProductService.Api\ProductService.Api.csproj", "{5A622BF3-74F4-4AC0-98A4-34F86980D31B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductService.Api", "src\Services\ProductService\ProductService.Api\ProductService.Api.csproj", "{5A622BF3-74F4-4AC0-98A4-34F86980D31B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethik.Utility.Api", "..\..\Ethik.Utility\Src\Ethik.Utility.Api\Ethik.Utility.Api.csproj", "{DEAB0E62-15C0-4B50-9F00-ACE979FFCE60}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethik.Utility.Common", "..\..\Ethik.Utility\Src\Ethik.Utility.Common\Ethik.Utility.Common.csproj", "{22B0293F-DE96-46B7-9452-985CD1F60F1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{DEAB0E62-15C0-4B50-9F00-ACE979FFCE60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEAB0E62-15C0-4B50-9F00-ACE979FFCE60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEAB0E62-15C0-4B50-9F00-ACE979FFCE60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22B0293F-DE96-46B7-9452-985CD1F60F1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22B0293F-DE96-46B7-9452-985CD1F60F1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22B0293F-DE96-46B7-9452-985CD1F60F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22B0293F-DE96-46B7-9452-985CD1F60F1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
