@@ -1,14 +1,17 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using ProductService.Domain.Interfaces;
-using System.Runtime.CompilerServices;
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using PetBazaar.Shared.DependencyInjection;
+using FluentValidation;
 
-namespace ProductService.Application;
+namespace ProductService.Application.DependencyInjection;
 
 public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddMediatR(c => c.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
+        var thisAssembly = typeof(DependencyInjection).Assembly;
+        services.AddMediatR(c => c.RegisterServicesFromAssembly(thisAssembly));
+        services.InjectValidatorsFromAssembly(thisAssembly);
         return services;
     }
 }

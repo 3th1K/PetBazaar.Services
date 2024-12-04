@@ -2,7 +2,7 @@
 using ProductService.Domain.Interfaces;
 using ProductService.Infrastructure.Repositories;
 
-namespace ProductService.Infrastructure;
+namespace ProductService.Infrastructure.DependencyInjection;
 
 public static class DependencyInjection
 {

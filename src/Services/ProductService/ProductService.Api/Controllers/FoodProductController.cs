@@ -7,7 +7,7 @@ using ProductService.Application.Features.Food.Dtos;
 namespace ProductService.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("food-product")]
 public class FoodProductController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -17,7 +17,7 @@ public class FoodProductController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost("food-product")]
+    [HttpPost]
     public async Task<IActionResult> AddAsync([FromBody] AddFoodProductRequest request)
     {
         var result = await _mediator.Send(new AddFoodProductCommand(request));
@@ -31,7 +31,7 @@ public class FoodProductController : ControllerBase
         return response.Result();
     }
 
-    [HttpGet("food-product/{id}")]
+    [HttpGet("{id}")]
     public IActionResult Get([FromRoute] string id)
     {
         return Ok();

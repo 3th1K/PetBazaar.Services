@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethik.Utility.Api", "..\..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ethik.Utility.Common", "..\..\Ethik.Utility\Src\Ethik.Utility.Common\Ethik.Utility.Common.csproj", "{22B0293F-DE96-46B7-9452-985CD1F60F1E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{4FC02D31-8EB7-40DF-BD5E-FFDF9E79BBE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetBazaar.Shared", "src\Common\PetBazaar.Shared\PetBazaar.Shared.csproj", "{897DBC54-06B5-4CEA-B597-30A6CFBD2BDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,10 @@ Global
 		{22B0293F-DE96-46B7-9452-985CD1F60F1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22B0293F-DE96-46B7-9452-985CD1F60F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22B0293F-DE96-46B7-9452-985CD1F60F1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{897DBC54-06B5-4CEA-B597-30A6CFBD2BDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{897DBC54-06B5-4CEA-B597-30A6CFBD2BDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{897DBC54-06B5-4CEA-B597-30A6CFBD2BDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{897DBC54-06B5-4CEA-B597-30A6CFBD2BDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +76,8 @@ Global
 		{3DD01F02-757C-46E0-AABF-A47778F885E4} = {09768FE6-97D2-4332-849C-D78B9F5B8ACB}
 		{8D9AEAFB-677C-4E20-AAAD-4E12A68C1F4C} = {09768FE6-97D2-4332-849C-D78B9F5B8ACB}
 		{5A622BF3-74F4-4AC0-98A4-34F86980D31B} = {09768FE6-97D2-4332-849C-D78B9F5B8ACB}
+		{4FC02D31-8EB7-40DF-BD5E-FFDF9E79BBE2} = {5A6A6077-B308-4178-B68C-71FCE14D9EC2}
+		{897DBC54-06B5-4CEA-B597-30A6CFBD2BDB} = {4FC02D31-8EB7-40DF-BD5E-FFDF9E79BBE2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7987AE77-C0D6-4EA2-A6AB-B4C704E20561}

@@ -1,19 +1,35 @@
-using ProductService.Application;
-using ProductService.Infrastructure;
+using Ethik.Utility.Api.Extensions;
+using ProductService.Application.DependencyInjection;
+using ProductService.Infrastructure.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+//controllers
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//logging
 builder.Services.AddLogging();
-builder.Services.AddApplication();
-builder.Services.AddInfrastructure();
+
+builder.Services
+    .AddApplication() //application layer
+    .AddInfrastructure(); //infrastructure layer
+
+//global exception handler
+builder.Services.AddGlobalExceptionHandler();
+
+//enforce lower case routes
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.LowercaseUrls = true;
+    options.LowercaseQueryStrings = true;
+});
 
 var app = builder.Build();
+
+app.UseExceptionHandler();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
