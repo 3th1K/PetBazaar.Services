@@ -6,13 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Food\Queries\" />
-  </ItemGroup>
-
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\..\..\..\Ethik.Utility\Src\Ethik.Utility.Common\Ethik.Utility.Common.csproj" />
-	  <ProjectReference Include="..\..\..\..\..\..\Ethik.Utility\Src\Ethik.Utility.Data\Ethik.Utility.Data.csproj" />
 	  <ProjectReference Include="..\..\..\Common\PetBazaar.Shared\PetBazaar.Shared.csproj" />
 		<ProjectReference Include="..\ProductService.Domain\ProductService.Domain.csproj" />
 	</ItemGroup>

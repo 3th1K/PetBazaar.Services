@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ProductService.Application.Features.Food.Commands;
 using ProductService.Application.Features.Food.Dtos;
+using ProductService.Application.Features.Food.Queries;
 
 namespace ProductService.Api.Controllers;
 
@@ -25,15 +26,36 @@ public class FoodProductController : ControllerBase
         if (result.IsSuccess && result.Data is not null)
         {
             var successResponse = ApiResponse<string>.Success(result.Data, 201, "Food product was added");
-            return CreatedAtAction(nameof(Get), new { id = result.Data }, successResponse);
+            return successResponse.Result();
+            // TODO return CreatedAtAction(nameof(GetAsync), new { id = "aa" }, successResponse);
         }
         var response = ApiResponse<string>.Failure("Failed to add food product");
         return response.Result();
     }
 
     [HttpGet("{id}")]
-    public IActionResult Get([FromRoute] string id)
+    public async Task<IActionResult> GetAsync([FromRoute] string id)
     {
-        return Ok();
+        var result = await _mediator.Send(new GetFoodProductDetailsQuery(id));
+        if (result.IsSuccess && result.Data is not null)
+        {
+            return ApiResponse<FoodProductDetails>.Success(result.Data, 200, "Fetched food product details").Result();
+        }
+        // TODO switch operation result error
+        var response = ApiResponse<FoodProductDetails>.Failure("Failed to fetch food product");
+        return response.Result();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllAsync([FromQuery] int? pageNumber, [FromQuery] int? pageSize, [FromQuery] string? orderBy, [FromQuery] bool? ascending)
+    {
+        var result = await _mediator.Send(new GetFoodProductsQuery(false, pageNumber, pageSize, orderBy, ascending));
+        if (result.IsSuccess && result.Data is not null)
+        {
+            return ApiResponse<List<FoodProductDetails>>.Success(result.Data, 200, "Fetched food products").Result();
+        }
+        // TODO switch operation result error
+        var response = ApiResponse<List<FoodProductDetails>>.Failure("Failed to fetch food products");
+        return response.Result();
     }
 }

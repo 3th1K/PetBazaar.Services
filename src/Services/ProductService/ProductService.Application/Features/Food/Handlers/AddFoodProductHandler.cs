@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using ProductService.Application.Extensions.Mappings;
 using ProductService.Application.Features.Food.Commands;
 using ProductService.Domain.Interfaces;
-using ProductService.Domain.Models;
 
 namespace ProductService.Application.Features.Food.Handlers;
 
@@ -22,7 +21,7 @@ public sealed class AddFoodProductHandler : IRequestHandler<AddFoodProductComman
 
     public async Task<OperationResult<string>> Handle(AddFoodProductCommand request, CancellationToken cancellationToken)
     {
-        using var watch = _logger.Watch(LogLevel.Information);
+        using var watch = _logger.Watch();
         var result = await _foodProductRepository.AddAsync(request.ToFoodProduct(), cancellationToken: cancellationToken);
         return result;
     }
