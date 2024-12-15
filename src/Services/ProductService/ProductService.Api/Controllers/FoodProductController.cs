@@ -47,9 +47,14 @@ public class FoodProductController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllAsync([FromQuery] int? pageNumber, [FromQuery] int? pageSize, [FromQuery] string? orderBy, [FromQuery] bool? ascending)
+    public async Task<IActionResult> GetAllAsync(
+        [FromQuery] int? pageNumber,
+        [FromQuery] int? pageSize,
+        [FromQuery] string? orderBy,
+        [FromQuery] bool? ascending,
+        [FromQuery] bool includeDeleted = false)
     {
-        var result = await _mediator.Send(new GetFoodProductsQuery(false, pageNumber, pageSize, orderBy, ascending));
+        var result = await _mediator.Send(new GetFoodProductsQuery(includeDeleted, pageNumber, pageSize, orderBy, ascending));
         if (result.IsSuccess && result.Data is not null)
         {
             return ApiResponse<List<FoodProductDetails>>.Success(result.Data, 200, "Fetched food products").Result();
