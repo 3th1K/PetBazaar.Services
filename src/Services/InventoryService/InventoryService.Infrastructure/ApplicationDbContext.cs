@@ -11,4 +11,4 @@ public class ApplicationDbContext : DbContext
     }
 
     public DbSet<Inventory> Inventories { get; set; }
-}
+} 

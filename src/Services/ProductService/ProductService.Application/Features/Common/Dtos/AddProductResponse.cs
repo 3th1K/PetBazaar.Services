@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ProductService.Application.Features.Common.Dtos;
+﻿namespace ProductService.Application.Features.Common.Dtos;
 
 public abstract class AddProductResponse
 {

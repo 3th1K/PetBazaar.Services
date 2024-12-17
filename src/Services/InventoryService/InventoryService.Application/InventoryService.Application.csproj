@@ -6,4 +6,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\..\..\Ethik.Utility\Src\Ethik.Utility.Common\Ethik.Utility.Common.csproj" />
+		<ProjectReference Include="..\..\..\Common\PetBazaar.Shared\PetBazaar.Shared.csproj" />
+		<ProjectReference Include="..\InventoryService.Domain\InventoryService.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Commands\" />
+	  <Folder Include="Handlers\" />
+	  <Folder Include="Validators\" />
+	  <Folder Include="Queries\" />
+	</ItemGroup>
+
 </Project>
