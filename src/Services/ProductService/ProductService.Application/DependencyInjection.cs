@@ -1,7 +1,5 @@
-﻿using MediatR;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using PetBazaar.Shared.DependencyInjection;
-using FluentValidation;
 
 namespace ProductService.Application.DependencyInjection;
 
@@ -12,6 +10,7 @@ public static class DependencyInjection
         var thisAssembly = typeof(DependencyInjection).Assembly;
         services.AddMediatR(c => c.RegisterServicesFromAssembly(thisAssembly));
         services.InjectValidatorsFromAssembly(thisAssembly);
+        
         return services;
     }
 }

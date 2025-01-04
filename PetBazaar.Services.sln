@@ -29,11 +29,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetBazaar.Shared", "src\Com
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InventoryService", "InventoryService", "{009FD7A9-35AE-4E1F-B480-2CF1EFD26B39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryService.Domain", "src\Services\InventoryService\InventoryService.Domain\InventoryService.Domain.csproj", "{E87FAD1C-167E-4E67-902C-B453E25C2C87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryService.Domain", "src\Services\InventoryService\InventoryService.Domain\InventoryService.Domain.csproj", "{E87FAD1C-167E-4E67-902C-B453E25C2C87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryService.Application", "src\Services\InventoryService\InventoryService.Application\InventoryService.Application.csproj", "{01E74F24-EEAE-4CA5-B129-C87AA9C86B2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryService.Application", "src\Services\InventoryService\InventoryService.Application\InventoryService.Application.csproj", "{01E74F24-EEAE-4CA5-B129-C87AA9C86B2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryService.Infrastructure", "src\Services\InventoryService\InventoryService.Infrastructure\InventoryService.Infrastructure.csproj", "{BA339A58-8E47-4ADC-914B-B87631A05E4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryService.Infrastructure", "src\Services\InventoryService\InventoryService.Infrastructure\InventoryService.Infrastructure.csproj", "{BA339A58-8E47-4ADC-914B-B87631A05E4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryService.Api", "src\Services\InventoryService\InventoryService.Api\InventoryService.Api.csproj", "{F1381DEF-D4E4-48DC-9434-B46213667939}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +87,10 @@ Global
 		{BA339A58-8E47-4ADC-914B-B87631A05E4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA339A58-8E47-4ADC-914B-B87631A05E4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA339A58-8E47-4ADC-914B-B87631A05E4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1381DEF-D4E4-48DC-9434-B46213667939}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1381DEF-D4E4-48DC-9434-B46213667939}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1381DEF-D4E4-48DC-9434-B46213667939}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1381DEF-D4E4-48DC-9434-B46213667939}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,6 +108,7 @@ Global
 		{E87FAD1C-167E-4E67-902C-B453E25C2C87} = {009FD7A9-35AE-4E1F-B480-2CF1EFD26B39}
 		{01E74F24-EEAE-4CA5-B129-C87AA9C86B2D} = {009FD7A9-35AE-4E1F-B480-2CF1EFD26B39}
 		{BA339A58-8E47-4ADC-914B-B87631A05E4F} = {009FD7A9-35AE-4E1F-B480-2CF1EFD26B39}
+		{F1381DEF-D4E4-48DC-9434-B46213667939} = {009FD7A9-35AE-4E1F-B480-2CF1EFD26B39}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7987AE77-C0D6-4EA2-A6AB-B4C704E20561}
