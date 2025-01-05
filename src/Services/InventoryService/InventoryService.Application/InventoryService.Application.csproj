@@ -14,9 +14,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Commands\" />
-	  <Folder Include="Handlers\" />
-	  <Folder Include="Validators\" />
-	  <Folder Include="Queries\" />
 	</ItemGroup>
 
 </Project>

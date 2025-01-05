@@ -31,7 +31,7 @@ public sealed class GetFoodProductsHandler : IRequestHandler<GetFoodProductsQuer
             if (result.IsSuccess && result.Data is not null)
             {
                 var products = request.IncludeDeleted ? result.Data : result.Data.Where(fProd => !fProd.IsDeleted);
-                return OperationResult<List<FoodProductDetails>>.Success(result.Data.ToFoodProductDetails().ToList());
+                return OperationResult<List<FoodProductDetails>>.Success(products.ToFoodProductDetails().ToList());
             }
             return OperationResult<List<FoodProductDetails>>.From(result);
         }
@@ -45,12 +45,10 @@ public sealed class GetFoodProductsHandler : IRequestHandler<GetFoodProductsQuer
             if (result.IsSuccess && result.Data is not null)
             {
                 var products = request.IncludeDeleted ? result.Data : result.Data.Where(fProd => !fProd.IsDeleted);
-                return OperationResult<List<FoodProductDetails>>.Success(result.Data.ToFoodProductDetails().ToList());
+                return OperationResult<List<FoodProductDetails>>.Success(products.ToFoodProductDetails().ToList());
             }
             return OperationResult<List<FoodProductDetails>>.From(result);
         }
-        
-
-        
+          
     }
 }

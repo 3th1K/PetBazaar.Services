@@ -1,6 +1,4 @@
-﻿
-
-namespace InventoryService.Application.Dtos;
+﻿namespace InventoryService.Application.Dtos;
 
 public sealed class AddInventoryRequest
 {
@@ -10,9 +8,4 @@ public sealed class AddInventoryRequest
     public DateTime? ExpirationDate { get; init; }
     public int Quantity { get; init; }
     public string Location { get; init; } = null!;
-}
-
-public class AddInventoryResponse
-{
-    public string Id { get; set; }
 }

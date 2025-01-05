@@ -1,15 +1,11 @@
-﻿using Ethik.Utility.Data.Repository;
+﻿namespace InventoryService.Application.Dtos;
 
-namespace InventoryService.Domain.Models;
-
-public class Inventory : IBaseEntity
+public class InventoryDetails
 {
     public string Id { get; set; } = null!;
+    public string ProductId { get; set; } = null!;
     public DateTime Created { get; set; }
     public DateTime LastModified { get; set; }
-    public bool IsDeleted { get; set; }
-
-    public string ProductId { get; set; } = null!;
     public string BatchNumber { get; set; } = "Unknown";
     public DateTime ManufacturingDate { get; set; }
     public DateTime? ExpirationDate { get; set; }

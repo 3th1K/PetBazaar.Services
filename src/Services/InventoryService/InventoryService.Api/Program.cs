@@ -1,5 +1,6 @@
 using Ethik.Utility.Api.Extensions;
 using InventoryService.Infrastructure.DependencyInjection;
+using InventoryService.Application.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddLogging();
 
 builder.Services
-    //.AddApplication() //application layer
+    .AddApplication() //application layer
     .AddInfrastructure(); //infrastructure layer
 
 //global exception handler
