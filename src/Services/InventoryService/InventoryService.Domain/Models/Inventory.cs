@@ -15,4 +15,21 @@ public class Inventory : IBaseEntity
     public DateTime? ExpirationDate { get; set; }
     public int Quantity { get; set; }
     public string Location { get; set; } = "Unknown";
+    public bool IsExpired
+    {
+        get
+        {
+            return ExpirationDate.HasValue && ExpirationDate.Value.Date <= DateTime.Now.Date;
+        }
+    }
+
+    public bool IsNearExpiration
+    {
+        get
+        {
+            return ExpirationDate.HasValue &&
+                   ExpirationDate.Value.Date > DateTime.Now.Date &&
+                   ExpirationDate.Value.Date <= DateTime.Now.AddDays(30).Date;
+        }
+    }
 }

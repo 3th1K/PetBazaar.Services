@@ -78,7 +78,7 @@ public class FoodProductRepository : BaseRepository<FoodProduct, ApplicationDbCo
             CategoryId = "CF123",
             Created = DateTime.Now,
             LastModified = DateTime.Now,
-            IsDeleted = false,
+            IsDeleted = true,
             Name = "Hill's Science Diet Adult 7+ Savory Chicken",
             Price = 12.99M,
             DescriptionShort = "A premium cat food for senior cats with natural ingredients",
@@ -86,7 +86,7 @@ public class FoodProductRepository : BaseRepository<FoodProduct, ApplicationDbCo
             DescriptionLarge = "Hill's Science Diet Adult 7+ Savory Chicken helps maintain lean muscle mass, healthy kidneys, and a shiny coat. It also supports brain health and cognitive function, helping your senior cat stay sharp and alert.",
             Ingredients = "Chicken, corn gluten meal, wheat flour, animal fat, pork liver flavor, dried beet pulp, brewers rice, fish oil, soybean oil, potassium chloride, taurine, vitamins (vitamin E supplement, niacin, vitamin A supplement, vitamin B12 supplement, vitamin D3 supplement, thiamine mononitrate, pyridoxine hydrochloride, folic acid, biotin, menadione sodium bisulfite complex (source of vitamin K activity), ascorbic acid (vitamin C), calcium pantothenate), minerals (zinc oxide, ferrous sulfate, copper sulfate, manganese sulfate, calcium iodate, sodium selenite), natural flavors, beta-carotene"
         };
-        context.FoodProducts.AddRange([catFood1, catFood2, catFood3, catFood4]);
+        context.FoodProducts.AddRange([catFood1, catFood2, catFood3, catFood4, catFood5]);
         context.SaveChanges();
     }
 }

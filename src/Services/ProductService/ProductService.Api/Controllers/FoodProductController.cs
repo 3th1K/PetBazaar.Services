@@ -1,6 +1,8 @@
 using Ethik.Utility.Api.Models;
+using Ethik.Utility.Data.Repository;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ProductService.Application.Features.Common.Constants;
 using ProductService.Application.Features.Food.Commands;
 using ProductService.Application.Features.Food.Dtos;
 using ProductService.Application.Features.Food.Queries;
@@ -33,20 +35,26 @@ public class FoodProductController : ControllerBase
         return response.Result();
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetAsync([FromRoute] string id)
+    [HttpGet]
+    public async Task<IActionResult> GetAsync([FromQuery] string productId)
     {
-        var result = await _mediator.Send(new GetFoodProductDetailsQuery(id));
+        var result = await _mediator.Send(new GetFoodProductDetailsQuery(productId));
         if (result.IsSuccess && result.Data is not null)
         {
             return ApiResponse<FoodProductDetails>.Success(result.Data, 200, "Fetched food product details").Result();
         }
-        // TODO switch operation result error
-        var response = ApiResponse<FoodProductDetails>.Failure("Failed to fetch food product");
-        return response.Result();
+        var failureResponse = ApiResponse<FoodProductDetails>.Failure("Failed to fetch food product");
+
+        if (result.MatchError(RepositoryErrorCodes.EntityNotFound))
+            failureResponse = ApiResponse<FoodProductDetails>.Failure("Food product not found", 404);
+
+        else if (result.MatchError(ProductOperationErrors.ProductDeleted))
+            failureResponse = ApiResponse<FoodProductDetails>.Failure("Food product was deleted", 404);
+
+        return failureResponse.Result();
     }
 
-    [HttpGet]
+    [HttpGet("all")]
     public async Task<IActionResult> GetAllAsync(
         [FromQuery] int? pageNumber,
         [FromQuery] int? pageSize,

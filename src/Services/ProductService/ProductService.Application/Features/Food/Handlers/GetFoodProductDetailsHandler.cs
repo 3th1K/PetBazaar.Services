@@ -3,6 +3,7 @@ using Ethik.Utility.Data.Results;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using ProductService.Application.Extensions.Mappings;
+using ProductService.Application.Features.Common.Constants;
 using ProductService.Application.Features.Food.Dtos;
 using ProductService.Application.Features.Food.Queries;
 using ProductService.Domain.Interfaces;
@@ -27,7 +28,7 @@ public sealed class GetFoodProductDetailsHandler : IRequestHandler<GetFoodProduc
         OperationResult<FoodProduct> result = await _foodProductRepository.GetByIdAsync(request.Id, cancellationToken);
         if (result.IsSuccess && result.Data!.IsDeleted)
         {
-            return OperationResult<FoodProductDetails>.Failure("Product is unavailable", "product_deleted");
+            return OperationResult<FoodProductDetails>.Failure("Product is unavailable", ProductOperationErrors.ProductDeleted);
         }
 
         if (result.IsSuccess && !result.Data!.IsDeleted)

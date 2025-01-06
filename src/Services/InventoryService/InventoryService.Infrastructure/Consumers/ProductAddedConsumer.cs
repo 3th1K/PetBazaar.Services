@@ -28,7 +28,7 @@ public class ProductAddedConsumer : IConsumer<ProductAdded>
         var inventoryItem = new Inventory 
         {
             ProductId = product.ProductId,
-            BatchNumber = "Initial",
+            BatchNumber = "InitialBatch",
             Quantity = initialStock,
             Location = "NonExistence"
         };

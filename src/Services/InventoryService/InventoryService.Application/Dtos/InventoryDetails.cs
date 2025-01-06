@@ -11,4 +11,6 @@ public class InventoryDetails
     public DateTime? ExpirationDate { get; set; }
     public int Quantity { get; set; }
     public string Location { get; set; } = "Unknown";
+    public bool IsExpired { get; set; }
+    public bool IsNearExpiration { get; set; }
 }

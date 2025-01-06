@@ -18,11 +18,19 @@ public static class InventoryMappings
             ExpirationDate = result.ExpirationDate,
             Quantity = result.Quantity,
             Location = result.Location,
+            IsExpired = result.IsExpired,
+            IsNearExpiration = result.IsNearExpiration,
         };
     }
 
     public static IEnumerable<InventoryDetails> ToInventoryDetails(this IEnumerable<Inventory> result)
     {
         return result.Select(i => i.ToInventoryDetails());
+    }
+
+    public static ProductInventoryDetails ToProductInventoryDetails(this IEnumerable<Inventory> result)
+    {
+        var list = result.ToList();
+        return new ProductInventoryDetails(list[0].ProductId, result.ToInventoryDetails().ToList());
     }
 }
