@@ -1,0 +1,16 @@
+{
+  "Errors": {
+    "ProductNotFound": {
+      "ErrorCode": "product_not_found",
+      "ErrorMessage": "The product was not found",
+      "ErrorDescription": "This product does not exists",
+      "ErrorSolution": "Please lookup for the product with a valid product id"
+    },
+    "ProductDeleted": {
+      "ErrorCode": "product_archived",
+      "ErrorMessage": "The product is currently unavailable.",
+      "ErrorDescription": "The product has been archived and is no longer available.",
+      "ErrorSolution": "Look for other available products"
+    }
+  }
+}

@@ -3,6 +3,7 @@ using InventoryService.Domain.Models;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 using PetBazaar.Shared.Events;
+using Ethik.Utility.Common.Extentions;
 
 namespace InventoryService.Infrastructure.Consumers;
 
@@ -21,7 +22,7 @@ public class ProductAddedConsumer : IConsumer<ProductAdded>
     {
         var product = context.Message;
 
-        _logger.LogInformation($"Received ProductAdded event for ProductId: {product.ProductId}");
+        _logger.Information($"Received ProductAdded event for ProductId: {product.ProductId}");
 
         int initialStock = 0;
 
@@ -35,9 +36,9 @@ public class ProductAddedConsumer : IConsumer<ProductAdded>
         var dbResult = await _inventoryRepository.AddAsync(inventoryItem);
 
         if(dbResult.IsSuccess)
-            _logger.LogInformation($"Stock initialized for ProductId: {product.ProductId} with {initialStock} units");
+            _logger.Information($"Stock initialized for ProductId: {product.ProductId} with {initialStock} units");
         else
-            _logger.LogError($"Unable to initialise stock for ProductId: {product.ProductId}");
+            _logger.Error($"Unable to initialise stock for ProductId: {product.ProductId}");
 
         //await context.Publish(new StockUpdated(product.ProductId, initialStock));
     }

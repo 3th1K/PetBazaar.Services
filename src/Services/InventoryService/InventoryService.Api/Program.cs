@@ -1,10 +1,15 @@
 using Ethik.Utility.Api.Extensions;
 using InventoryService.Infrastructure.DependencyInjection;
 using InventoryService.Application.DependencyInjection;
+using Serilog;
+using Ethik.Utility.Common.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
+LogExtensions.SetApplicationName("InventoryService.Api");
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

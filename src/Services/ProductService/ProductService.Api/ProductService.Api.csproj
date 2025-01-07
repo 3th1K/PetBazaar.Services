@@ -6,8 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Serilog.AspNetCore" Version="8.0.2-dev-00338" />
+	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ProductService.Infrastructure\ProductService.Infrastructure.csproj" />

@@ -2,6 +2,7 @@ using Ethik.Utility.Api.Models;
 using Ethik.Utility.Data.Repository;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ProductService.Api.Constants;
 using ProductService.Application.Features.Common.Constants;
 using ProductService.Application.Features.Food.Commands;
 using ProductService.Application.Features.Food.Dtos;
@@ -46,10 +47,10 @@ public class FoodProductController : ControllerBase
         var failureResponse = ApiResponse<FoodProductDetails>.Failure("Failed to fetch food product");
 
         if (result.MatchError(RepositoryErrorCodes.EntityNotFound))
-            failureResponse = ApiResponse<FoodProductDetails>.Failure("Food product not found", 404);
+            failureResponse = ApiResponse<FoodProductDetails>.Failure(ApiErrorConstants.ProductNotFound, $"Food product with id {productId} not found", 404);
 
         else if (result.MatchError(ProductOperationErrors.ProductDeleted))
-            failureResponse = ApiResponse<FoodProductDetails>.Failure("Food product was deleted", 404);
+            failureResponse = ApiResponse<FoodProductDetails>.Failure(ApiErrorConstants.ProductDeleted, $"Food product with id {productId} is unavailable", 404);
 
         return failureResponse.Result();
     }
