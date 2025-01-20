@@ -1,13 +1,13 @@
-﻿using Ethik.Utility.Data.Results;
+﻿using Ethik.Utility.Common.Extentions;
+using Ethik.Utility.Data.Results;
 using InventoryService.Application.Dtos;
+using InventoryService.Application.Extensions.Mappings;
 using InventoryService.Application.Queries;
 using InventoryService.Domain.Interfaces;
+using InventoryService.Domain.Models;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using PetBazaar.Shared;
-using Ethik.Utility.Common.Extentions;
-using InventoryService.Application.Extensions.Mappings;
-using InventoryService.Domain.Models;
 
 namespace InventoryService.Application.Handlers;
 
@@ -15,11 +15,13 @@ public sealed class GetInventoriesHandler : IRequestHandler<GetInventoriesQuery,
 {
     private readonly ILogger<GetInventoriesHandler> _logger;
     private readonly IInventoryRepository _inventoryRepository;
+
     public GetInventoriesHandler(ILogger<GetInventoriesHandler> logger, IInventoryRepository inventoryRepository)
     {
         _logger = logger;
         _inventoryRepository = inventoryRepository;
     }
+
     public async Task<OperationResult<List<InventoryDetails>>> Handle(GetInventoriesQuery request, CancellationToken cancellationToken)
     {
         using var watch = _logger.Watch();

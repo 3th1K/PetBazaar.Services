@@ -7,7 +7,7 @@ namespace InventoryService.Application.Queries;
 
 public class GetInventoriesQuery : BasePagedQuery, IRequest<OperationResult<List<InventoryDetails>>>
 {
-    public GetInventoriesQuery(bool includeDeleted = false, int? pageNumber = null, int? pageSize = null, string? orderBy = null, bool? ascending = null) 
+    public GetInventoriesQuery(bool includeDeleted = false, int? pageNumber = null, int? pageSize = null, string? orderBy = null, bool? ascending = null)
         : base(includeDeleted, pageNumber, pageSize, orderBy, ascending)
     { }
 }

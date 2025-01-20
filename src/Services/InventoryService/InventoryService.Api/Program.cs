@@ -1,8 +1,8 @@
 using Ethik.Utility.Api.Extensions;
-using InventoryService.Infrastructure.DependencyInjection;
-using InventoryService.Application.DependencyInjection;
-using Serilog;
 using Ethik.Utility.Common.Extentions;
+using InventoryService.Application.DependencyInjection;
+using InventoryService.Infrastructure.DependencyInjection;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 

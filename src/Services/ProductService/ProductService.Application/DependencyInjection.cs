@@ -10,7 +10,7 @@ public static class DependencyInjection
         var thisAssembly = typeof(DependencyInjection).Assembly;
         services.AddMediatR(c => c.RegisterServicesFromAssembly(thisAssembly));
         services.InjectValidatorsFromAssembly(thisAssembly);
-        
+
         return services;
     }
 }

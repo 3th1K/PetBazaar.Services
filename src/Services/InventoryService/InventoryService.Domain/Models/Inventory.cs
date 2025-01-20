@@ -15,6 +15,7 @@ public class Inventory : IBaseEntity
     public DateTime? ExpirationDate { get; set; }
     public int Quantity { get; set; }
     public string Location { get; set; } = "Unknown";
+
     public bool IsExpired
     {
         get

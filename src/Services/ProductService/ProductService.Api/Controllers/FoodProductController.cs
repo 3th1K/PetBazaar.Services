@@ -48,7 +48,6 @@ public class FoodProductController : ControllerBase
 
         if (result.MatchError(RepositoryErrorCodes.EntityNotFound))
             failureResponse = ApiResponse<FoodProductDetails>.Failure(ApiErrorConstants.ProductNotFound, $"Food product with id {productId} not found", 404);
-
         else if (result.MatchError(ProductOperationErrors.ProductDeleted))
             failureResponse = ApiResponse<FoodProductDetails>.Failure(ApiErrorConstants.ProductDeleted, $"Food product with id {productId} is unavailable", 404);
 

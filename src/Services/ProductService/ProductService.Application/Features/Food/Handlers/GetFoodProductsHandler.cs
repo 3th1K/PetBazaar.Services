@@ -35,7 +35,7 @@ public sealed class GetFoodProductsHandler : IRequestHandler<GetFoodProductsQuer
             }
             return OperationResult<List<FoodProductDetails>>.From(result);
         }
-        else 
+        else
         {
             var pageNumber = request.PageNumber ?? 1;
             var pageSize = request.PageSize ?? 10;
@@ -49,6 +49,5 @@ public sealed class GetFoodProductsHandler : IRequestHandler<GetFoodProductsQuer
             }
             return OperationResult<List<FoodProductDetails>>.From(result);
         }
-          
     }
 }

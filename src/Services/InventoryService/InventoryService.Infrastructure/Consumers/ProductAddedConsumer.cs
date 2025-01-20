@@ -1,9 +1,9 @@
-﻿using InventoryService.Domain.Interfaces;
+﻿using Ethik.Utility.Common.Extentions;
+using InventoryService.Domain.Interfaces;
 using InventoryService.Domain.Models;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 using PetBazaar.Shared.Events;
-using Ethik.Utility.Common.Extentions;
 
 namespace InventoryService.Infrastructure.Consumers;
 
@@ -26,7 +26,7 @@ public class ProductAddedConsumer : IConsumer<ProductAdded>
 
         int initialStock = 0;
 
-        var inventoryItem = new Inventory 
+        var inventoryItem = new Inventory
         {
             ProductId = product.ProductId,
             BatchNumber = "InitialBatch",
@@ -35,7 +35,7 @@ public class ProductAddedConsumer : IConsumer<ProductAdded>
         };
         var dbResult = await _inventoryRepository.AddAsync(inventoryItem);
 
-        if(dbResult.IsSuccess)
+        if (dbResult.IsSuccess)
             _logger.Information($"Stock initialized for ProductId: {product.ProductId} with {initialStock} units");
         else
             _logger.Error($"Unable to initialise stock for ProductId: {product.ProductId}");

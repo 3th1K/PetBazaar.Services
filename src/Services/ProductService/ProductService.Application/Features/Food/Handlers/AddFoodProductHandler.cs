@@ -2,12 +2,10 @@
 using Ethik.Utility.Data.Results;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using PetBazaar.Shared.Events;
 using ProductService.Application.Extensions.Mappings;
 using ProductService.Application.Features.Food.Commands;
 using ProductService.Domain.Interfaces;
-using System.Text.Json;
 
 namespace ProductService.Application.Features.Food.Handlers;
 
@@ -38,12 +36,12 @@ public sealed class AddFoodProductHandler : IRequestHandler<AddFoodProductComman
             await _eventPublisher.Publish(@event, cancellationToken);
             _logger.Information("Published event @ProductAdded");
         }
-        else if(!result.IsSuccess)
+        else if (!result.IsSuccess)
         {
             _logger.Error("Failed to add food product");
             _logger.Property("OperationResult", result);
         }
-        
+
         return result;
     }
 }

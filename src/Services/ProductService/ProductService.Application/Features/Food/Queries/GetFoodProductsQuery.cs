@@ -8,7 +8,7 @@ namespace ProductService.Application.Features.Food.Queries;
 public class GetFoodProductsQuery : BasePagedQuery, IRequest<OperationResult<List<FoodProductDetails>>>
 {
     public GetFoodProductsQuery(bool includeDeleted = false, int? pageNumber = null, int? pageSize = null, string? orderBy = null, bool? ascending = null)
-        :base(includeDeleted, pageNumber, pageSize, orderBy, ascending)
+        : base(includeDeleted, pageNumber, pageSize, orderBy, ascending)
     {
     }
 }

@@ -10,7 +10,6 @@ namespace InventoryService.Api.Controllers;
 [Route("inventory")]
 public class InventoryController : ControllerBase
 {
-
     private readonly ILogger<InventoryController> _logger;
     private readonly IMediator _mediator;
 
@@ -21,7 +20,7 @@ public class InventoryController : ControllerBase
     }
 
     [HttpGet("product")]
-    public async Task<IActionResult> GetProductInventoryAsync([FromQuery]string productId) 
+    public async Task<IActionResult> GetProductInventoryAsync([FromQuery] string productId)
     {
         var result = await _mediator.Send(new GetProductInventoryQuery(productId));
         if (result.IsSuccess && result.Data is not null)
