@@ -5,15 +5,29 @@ using MediatR;
 
 namespace PetBazaar.Shared;
 
+/// <summary>
+/// MediatR pipeline behavior that validates requests using FluentValidation.
+/// </summary>
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ValidationBehavior{TRequest, TResponse}"/> class.
+    /// </summary>
+    /// <param name="validators">A collection of validators for the request type.</param>
     public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
     {
         _validators = validators;
     }
 
+    /// <summary>
+    /// Handles the specified request and executes the next step in the pipeline.
+    /// </summary>
+    /// <param name="request">The request to handle.</param>
+    /// <param name="next">The next step in the pipeline.</param>
+    /// <param name="cancellationToken">A cancellation token.</param>
+    /// <returns>The response from the next step in the pipeline.</returns>
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         var context = new ValidationContext<TRequest>(request);
@@ -21,7 +35,8 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
         var failures = _validators
             .Select(v => v.Validate(context))
             .SelectMany(result => result.Errors)
-            .Where(f => f != null).Select(s => new ApiValidationFailure(s.PropertyName, s.ErrorMessage, s.AttemptedValue, s.FormattedMessagePlaceholderValues, s.Severity.ToString(), s.ErrorCode))
+            .Where(f => f != null)
+            .Select(s => new ApiValidationFailure(s.PropertyName, s.ErrorMessage, s.AttemptedValue, s.FormattedMessagePlaceholderValues, s.Severity.ToString(), s.ErrorCode))
             .ToList();
 
         if (failures.Any())
