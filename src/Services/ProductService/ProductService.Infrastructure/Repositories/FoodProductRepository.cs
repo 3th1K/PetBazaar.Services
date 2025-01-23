@@ -6,11 +6,28 @@ using ProductService.Domain.Models;
 
 namespace ProductService.Infrastructure.Repositories;
 
+/// <summary>
+/// Represents a repository for managing <see cref="FoodProduct"/> entities in the database.
+/// </summary>
+/// <remarks>
+/// This repository extends <see cref="BaseRepository{T, TContext}"/> to provide basic CRUD operations
+/// for the <see cref="FoodProduct"/> entity using the <see cref="ApplicationDbContext"/>.
+/// </remarks>
 public class FoodProductRepository : BaseRepository<FoodProduct, ApplicationDbContext>, IFoodProductRepository
 {
-    public FoodProductRepository(IDbContextFactory<ApplicationDbContext> contextFactory, ILogger<FoodProductRepository> logger) : base(contextFactory, logger)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FoodProductRepository"/> class.
+    /// </summary>
+    /// <param name="contextFactory">The factory used to create instances of <see cref="ApplicationDbContext"/>.</param>
+    /// <param name="logger">The logger used for logging operations.</param>
+    /// <remarks>
+    /// This constructor initializes the repository and seeds the database with sample food products.
+    /// </remarks>
+    public FoodProductRepository(IDbContextFactory<ApplicationDbContext> contextFactory, ILogger<FoodProductRepository> logger)
+        : base(contextFactory, logger)
     {
         using var context = _contextFactory.CreateDbContext();
+
         // Create 5 cat food products
         var catFood1 = new FoodProduct
         {
@@ -86,6 +103,8 @@ public class FoodProductRepository : BaseRepository<FoodProduct, ApplicationDbCo
             DescriptionLarge = "Hill's Science Diet Adult 7+ Savory Chicken helps maintain lean muscle mass, healthy kidneys, and a shiny coat. It also supports brain health and cognitive function, helping your senior cat stay sharp and alert.",
             Ingredients = "Chicken, corn gluten meal, wheat flour, animal fat, pork liver flavor, dried beet pulp, brewers rice, fish oil, soybean oil, potassium chloride, taurine, vitamins (vitamin E supplement, niacin, vitamin A supplement, vitamin B12 supplement, vitamin D3 supplement, thiamine mononitrate, pyridoxine hydrochloride, folic acid, biotin, menadione sodium bisulfite complex (source of vitamin K activity), ascorbic acid (vitamin C), calcium pantothenate), minerals (zinc oxide, ferrous sulfate, copper sulfate, manganese sulfate, calcium iodate, sodium selenite), natural flavors, beta-carotene"
         };
+
+        // Add sample food products to the database
         context.FoodProducts.AddRange([catFood1, catFood2, catFood3, catFood4, catFood5]);
         context.SaveChanges();
     }

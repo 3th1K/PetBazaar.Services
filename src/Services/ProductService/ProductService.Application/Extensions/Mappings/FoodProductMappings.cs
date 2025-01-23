@@ -4,8 +4,16 @@ using ProductService.Domain.Models;
 
 namespace ProductService.Application.Extensions.Mappings;
 
+/// <summary>
+/// Provides extension methods for mapping between domain models and DTOs related to food products.
+/// </summary>
 public static class FoodProductMappings
 {
+    /// <summary>
+    /// Maps an <see cref="AddFoodProductCommand"/> to a <see cref="FoodProduct"/> domain model.
+    /// </summary>
+    /// <param name="command">The <see cref="AddFoodProductCommand"/> to map.</param>
+    /// <returns>A <see cref="FoodProduct"/> domain model containing the mapped data.</returns>
     public static FoodProduct ToFoodProduct(this AddFoodProductCommand command)
     {
         return new FoodProduct
@@ -20,6 +28,11 @@ public static class FoodProductMappings
         };
     }
 
+    /// <summary>
+    /// Maps a <see cref="FoodProduct"/> domain model to a <see cref="FoodProductDetails"/> DTO.
+    /// </summary>
+    /// <param name="result">The <see cref="FoodProduct"/> domain model to map.</param>
+    /// <returns>A <see cref="FoodProductDetails"/> DTO containing the mapped data.</returns>
     public static FoodProductDetails ToFoodProductDetails(this FoodProduct result)
     {
         return new FoodProductDetails
@@ -37,6 +50,11 @@ public static class FoodProductMappings
         };
     }
 
+    /// <summary>
+    /// Maps a collection of <see cref="FoodProduct"/> domain models to a collection of <see cref="FoodProductDetails"/> DTOs.
+    /// </summary>
+    /// <param name="result">The collection of <see cref="FoodProduct"/> domain models to map.</param>
+    /// <returns>A collection of <see cref="FoodProductDetails"/> DTOs containing the mapped data.</returns>
     public static IEnumerable<FoodProductDetails> ToFoodProductDetails(this IEnumerable<FoodProduct> result)
     {
         return result.Select(foodProduct => foodProduct.ToFoodProductDetails());

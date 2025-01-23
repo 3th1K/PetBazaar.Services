@@ -10,17 +10,32 @@ using ProductService.Application.Features.Food.Queries;
 
 namespace ProductService.Api.Controllers;
 
+/// <summary>
+/// Controller for managing food product-related operations.
+/// </summary>
 [ApiController]
 [Route("food-product")]
 public class FoodProductController : ControllerBase
 {
     private readonly IMediator _mediator;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FoodProductController"/> class.
+    /// </summary>
+    /// <param name="mediator">The mediator used to send commands and queries.</param>
     public FoodProductController(IMediator mediator)
     {
         _mediator = mediator;
     }
 
+    /// <summary>
+    /// Adds a new food product.
+    /// </summary>
+    /// <param name="request">The request containing the details of the food product to add.</param>
+    /// <returns>
+    /// An <see cref="IActionResult"/> containing the result of the operation.
+    /// Returns a 201 Created response if successful, or a failure response if the operation fails.
+    /// </returns>
     [HttpPost]
     public async Task<IActionResult> AddAsync([FromBody] AddFoodProductRequest request)
     {
@@ -36,6 +51,14 @@ public class FoodProductController : ControllerBase
         return response.Result();
     }
 
+    /// <summary>
+    /// Retrieves details of a specific food product.
+    /// </summary>
+    /// <param name="productId">The unique identifier of the food product to retrieve.</param>
+    /// <returns>
+    /// An <see cref="IActionResult"/> containing the food product details if successful,
+    /// or a failure response if the operation fails or the product is not found.
+    /// </returns>
     [HttpGet]
     public async Task<IActionResult> GetAsync([FromQuery] string productId)
     {
@@ -54,6 +77,18 @@ public class FoodProductController : ControllerBase
         return failureResponse.Result();
     }
 
+    /// <summary>
+    /// Retrieves a list of all food products, optionally paginated and sorted.
+    /// </summary>
+    /// <param name="pageNumber">The page number for pagination.</param>
+    /// <param name="pageSize">The number of items per page.</param>
+    /// <param name="orderBy">The field to order the results by.</param>
+    /// <param name="ascending">Whether to sort the results in ascending order.</param>
+    /// <param name="includeDeleted">Whether to include deleted food products in the results.</param>
+    /// <returns>
+    /// An <see cref="IActionResult"/> containing the list of food products if successful,
+    /// or a failure response if the operation fails.
+    /// </returns>
     [HttpGet("all")]
     public async Task<IActionResult> GetAllAsync(
         [FromQuery] int? pageNumber,
