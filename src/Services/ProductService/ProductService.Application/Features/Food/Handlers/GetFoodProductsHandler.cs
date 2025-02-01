@@ -42,6 +42,7 @@ public sealed class GetFoodProductsHandler : IRequestHandler<GetFoodProductsQuer
     public async Task<OperationResult<List<FoodProductDetails>>> Handle(GetFoodProductsQuery request, CancellationToken cancellationToken)
     {
         using var watch = _logger.Watch();
+        _logger.Information($"Handling GetFoodProductsQuery with parameters: PageNumber={request.PageNumber}, PageSize={request.PageSize}, OrderBy={request.OrderBy}, Ascending={request.Ascending}, IncludeDeleted={request.IncludeDeleted}");
 
         // Handle non-paginated request
         if (request.PageNumber is null || request.PageSize is null)
@@ -50,9 +51,10 @@ public sealed class GetFoodProductsHandler : IRequestHandler<GetFoodProductsQuer
             if (result.IsSuccess && result.Data is not null)
             {
                 // Filter out deleted products if requested
-                var products = request.IncludeDeleted ? result.Data : result.Data.Where(fProd => !fProd.IsDeleted);
-                return OperationResult<List<FoodProductDetails>>.Success(products.ToFoodProductDetails().ToList());
+                _logger.Information($"Retrieved {result.Data.Count()} food products (non-paginated).");
+                return OperationResult<List<FoodProductDetails>>.Success(ProcessProducts(result.Data, request.IncludeDeleted));
             }
+            _logger.Warning($"Failed to retrieve food products: {result.ErrorStack}");
             return OperationResult<List<FoodProductDetails>>.From(result);
         }
         // Handle paginated request
@@ -68,10 +70,16 @@ public sealed class GetFoodProductsHandler : IRequestHandler<GetFoodProductsQuer
             if (result.IsSuccess && result.Data is not null)
             {
                 // Filter out deleted products if requested
-                var products = request.IncludeDeleted ? result.Data : result.Data.Where(fProd => !fProd.IsDeleted);
-                return OperationResult<List<FoodProductDetails>>.Success(products.ToFoodProductDetails().ToList());
+                _logger.Information($"Retrieved {result.Data.Count()} food products (paginated).");
+                return OperationResult<List<FoodProductDetails>>.Success(ProcessProducts(result.Data, request.IncludeDeleted));
             }
+            _logger.Warning($"Failed to retrieve food products: {result.ErrorStack}");
             return OperationResult<List<FoodProductDetails>>.From(result);
         }
+    }
+    private List<FoodProductDetails> ProcessProducts(IEnumerable<FoodProduct> products, bool includeDeleted)
+    {
+        var filteredProducts = includeDeleted ? products : products.Where(fProd => !fProd.IsDeleted);
+        return filteredProducts.ToFoodProductDetails().ToList();
     }
 }
