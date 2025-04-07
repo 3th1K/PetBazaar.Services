@@ -1,11 +1,11 @@
 ﻿using Ethik.Utility.Common.Extentions;
+using Ethik.Utility.CQRS;
 using Ethik.Utility.Data.Results;
 using InventoryService.Application.Dtos;
 using InventoryService.Application.Extensions.Mappings;
 using InventoryService.Application.Queries;
 using InventoryService.Domain.Interfaces;
 using InventoryService.Domain.Models;
-using MediatR;
 using Microsoft.Extensions.Logging;
 using PetBazaar.Shared;
 

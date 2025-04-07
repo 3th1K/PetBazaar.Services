@@ -1,6 +1,6 @@
 using Ethik.Utility.Api.Models;
+using Ethik.Utility.CQRS;
 using Ethik.Utility.Data.Repository;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ProductService.Api.Constants;
 using ProductService.Application.Features.Common.Constants;
@@ -17,15 +17,15 @@ namespace ProductService.Api.Controllers;
 [Route("food-product")]
 public class FoodProductController : ControllerBase
 {
-    private readonly IMediator _mediator;
+    private readonly IRequestDispatcher _dispatcher;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FoodProductController"/> class.
     /// </summary>
     /// <param name="mediator">The mediator used to send commands and queries.</param>
-    public FoodProductController(IMediator mediator)
+    public FoodProductController(IRequestDispatcher dispatcher)
     {
-        _mediator = mediator;
+        _dispatcher = dispatcher;
     }
 
     /// <summary>
@@ -37,9 +37,9 @@ public class FoodProductController : ControllerBase
     /// Returns a 201 Created response if successful, or a failure response if the operation fails.
     /// </returns>
     [HttpPost]
-    public async Task<IActionResult> AddAsync([FromBody] AddFoodProductRequest request)
+    public async Task<IActionResult> AddAsync([FromBody] AddFoodProductRequest request, CancellationToken cancellationToken=default)
     {
-        var result = await _mediator.Send(new AddFoodProductCommand(request));
+        var result = await _dispatcher.SendAsync(new AddFoodProductCommand(request), cancellationToken);
 
         if (result.IsSuccess && result.Data is not null)
         {
@@ -60,9 +60,9 @@ public class FoodProductController : ControllerBase
     /// or a failure response if the operation fails or the product is not found.
     /// </returns>
     [HttpGet]
-    public async Task<IActionResult> GetAsync([FromQuery] string productId)
+    public async Task<IActionResult> GetAsync([FromQuery] string productId, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new GetFoodProductDetailsQuery(productId));
+        var result = await _dispatcher.SendAsync(new GetFoodProductDetailsQuery(productId), cancellationToken);
         if (result.IsSuccess && result.Data is not null)
         {
             return ApiResponse<FoodProductDetails>.Success(result.Data, 200, "Fetched food product details").Result();
@@ -95,9 +95,9 @@ public class FoodProductController : ControllerBase
         [FromQuery] int? pageSize,
         [FromQuery] string? orderBy,
         [FromQuery] bool? ascending,
-        [FromQuery] bool includeDeleted = false)
+        [FromQuery] bool includeDeleted = false, CancellationToken cancellationToken=default)
     {
-        var result = await _mediator.Send(new GetFoodProductsQuery(includeDeleted, pageNumber, pageSize, orderBy, ascending));
+        var result = await _dispatcher.SendAsync(new GetFoodProductsQuery(includeDeleted, pageNumber, pageSize, orderBy, ascending), cancellationToken);
         if (result.IsSuccess && result.Data is not null)
         {
             return ApiResponse<List<FoodProductDetails>>.Success(result.Data, 200, "Fetched food products").Result();

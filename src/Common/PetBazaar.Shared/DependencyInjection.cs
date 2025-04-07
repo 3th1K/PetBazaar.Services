@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using MediatR;
+﻿using Ethik.Utility.CQRS;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -11,7 +11,7 @@ namespace PetBazaar.Shared.DependencyInjection;
 public static class DependencyInjection
 {
     /// <summary>
-    /// Registers validators from the specified assembly and configures the MediatR validation pipeline.
+    /// Registers validators from the specified assembly and configures the CQRS validation pipeline.
     /// </summary>
     /// <param name="services">The service collection.</param>
     /// <param name="assembly">The assembly containing the validators.</param>

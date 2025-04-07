@@ -1,7 +1,7 @@
 using Ethik.Utility.Api.Models;
+using Ethik.Utility.CQRS;
 using InventoryService.Application.Dtos;
 using InventoryService.Application.Queries;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryService.Api.Controllers;
@@ -14,17 +14,17 @@ namespace InventoryService.Api.Controllers;
 public class InventoryController : ControllerBase
 {
     private readonly ILogger<InventoryController> _logger;
-    private readonly IMediator _mediator;
+    private readonly IRequestDispatcher _dispatcher;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="InventoryController"/> class.
     /// </summary>
     /// <param name="logger">The logger used for logging.</param>
     /// <param name="mediator">The mediator used for handling queries.</param>
-    public InventoryController(ILogger<InventoryController> logger, IMediator mediator)
+    public InventoryController(ILogger<InventoryController> logger, IRequestDispatcher dispatcher)
     {
         _logger = logger;
-        _mediator = mediator;
+        _dispatcher = dispatcher;
     }
 
     /// <summary>
@@ -36,9 +36,9 @@ public class InventoryController : ControllerBase
     /// or an error response if the operation fails.
     /// </returns>
     [HttpGet("product")]
-    public async Task<IActionResult> GetProductInventoryAsync([FromQuery] string productId)
+    public async Task<IActionResult> GetProductInventoryAsync([FromQuery] string productId, CancellationToken cancellationToken = default)
     {
-        var result = await _mediator.Send(new GetProductInventoryQuery(productId));
+        var result = await _dispatcher.SendAsync(new GetProductInventoryQuery(productId), cancellationToken);
         if (result.IsSuccess && result.Data is not null)
         {
             return ApiResponse<ProductInventoryDetails>.Success(result.Data, 200, "Fetched product inventory details").Result();
@@ -66,9 +66,9 @@ public class InventoryController : ControllerBase
     [FromQuery] int? pageSize,
     [FromQuery] string? orderBy,
     [FromQuery] bool? ascending,
-    [FromQuery] bool includeDeleted = false)
+    [FromQuery] bool includeDeleted = false, CancellationToken cancellationToken=default)
     {
-        var result = await _mediator.Send(new GetInventoriesQuery(includeDeleted, pageNumber, pageSize, orderBy, ascending));
+        var result = await _dispatcher.SendAsync(new GetInventoriesQuery(includeDeleted, pageNumber, pageSize, orderBy, ascending), cancellationToken);
         if (result.IsSuccess && result.Data is not null)
         {
             return ApiResponse<List<InventoryDetails>>.Success(result.Data, 200, "Fetched inventories").Result();

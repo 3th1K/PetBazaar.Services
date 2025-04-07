@@ -1,6 +1,6 @@
-﻿using Ethik.Utility.Data.Results;
+﻿using Ethik.Utility.CQRS;
+using Ethik.Utility.Data.Results;
 using InventoryService.Application.Dtos;
-using MediatR;
 
 namespace InventoryService.Application.Queries;
 

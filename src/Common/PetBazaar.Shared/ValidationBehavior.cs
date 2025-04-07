@@ -1,14 +1,14 @@
 ﻿using Ethik.Utility.Api.Exceptions;
 using Ethik.Utility.Api.Models;
+using Ethik.Utility.CQRS;
 using FluentValidation;
-using MediatR;
 
 namespace PetBazaar.Shared;
 
 /// <summary>
-/// MediatR pipeline behavior that validates requests using FluentValidation.
+/// CQRS pipeline behavior that validates requests using FluentValidation.
 /// </summary>
-public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
+public class ValidationBehavior<TRequest, TResult> : IPipelineBehavior<TRequest, TResult> where TRequest : notnull
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -28,7 +28,7 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
     /// <param name="next">The next step in the pipeline.</param>
     /// <param name="cancellationToken">A cancellation token.</param>
     /// <returns>The response from the next step in the pipeline.</returns>
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    public async Task<TResult> Handle(TRequest request, RequestHandlerDelegate<TResult> next, CancellationToken cancellationToken)
     {
         var context = new ValidationContext<TRequest>(request);
 

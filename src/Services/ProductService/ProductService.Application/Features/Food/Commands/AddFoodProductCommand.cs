@@ -1,5 +1,5 @@
-﻿using Ethik.Utility.Data.Results;
-using MediatR;
+﻿using Ethik.Utility.CQRS;
+using Ethik.Utility.Data.Results;
 using ProductService.Application.Features.Common.Commands;
 using ProductService.Application.Features.Food.Dtos;
 

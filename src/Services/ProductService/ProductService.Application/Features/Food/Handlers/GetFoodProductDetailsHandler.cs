@@ -1,6 +1,6 @@
 ﻿using Ethik.Utility.Common.Extentions;
+using Ethik.Utility.CQRS;
 using Ethik.Utility.Data.Results;
-using MediatR;
 using Microsoft.Extensions.Logging;
 using ProductService.Application.Extensions.Mappings;
 using ProductService.Application.Features.Common.Constants;
