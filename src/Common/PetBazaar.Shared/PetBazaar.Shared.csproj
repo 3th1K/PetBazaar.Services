@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="11.11.0" />
-    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\Ethik.Utility\Src\Ethik.Utility.Api\Ethik.Utility.Api.csproj" />
     <ProjectReference Include="..\..\..\..\..\Ethik.Utility\Src\Ethik.Utility.CQRS\Ethik.Utility.CQRS.csproj" />
   </ItemGroup>

@@ -1,7 +1,7 @@
-﻿using Ethik.Utility.Api.Exceptions;
-using Ethik.Utility.Api.Models;
+﻿
+using Ethik.Utility.Api.Validation;
+using Ethik.Utility.Api.Validation.Interfaces;
 using Ethik.Utility.CQRS;
-using FluentValidation;
 
 namespace PetBazaar.Shared;
 
@@ -36,12 +36,12 @@ public class ValidationBehavior<TRequest, TResult> : IPipelineBehavior<TRequest,
             .Select(v => v.Validate(context))
             .SelectMany(result => result.Errors)
             .Where(f => f != null)
-            .Select(s => new ApiValidationFailure(s.PropertyName, s.ErrorMessage, s.AttemptedValue, s.FormattedMessagePlaceholderValues, s.Severity.ToString(), s.ErrorCode))
+            .Select(s => new ValidationFailure(s.PropertyName, s.ErrorMessage, s.AttemptedValue, s.FormattedMessagePlaceholderValues, s.Severity.ToString(), s.ErrorCode))
             .ToList();
 
         if (failures.Any())
         {
-            throw new ApiValidationException(failures);
+            throw new ValidationException(failures);
         }
 
         return await next();

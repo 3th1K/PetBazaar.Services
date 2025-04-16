@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+﻿using Ethik.Utility.Api.Validation;
 using ProductService.Application.Features.Food.Queries;
 
 namespace ProductService.Application.Features.Food.Validators;
@@ -6,7 +6,7 @@ namespace ProductService.Application.Features.Food.Validators;
 /// <summary>
 /// Validates the <see cref="GetFoodProductsQuery"/> to ensure it meets the required criteria.
 /// </summary>
-public class GetFoodProductsQueryValidator : AbstractValidator<GetFoodProductsQuery>
+public class GetFoodProductsQueryValidator : Validator<GetFoodProductsQuery>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="GetFoodProductsQueryValidator"/> class.
@@ -20,8 +20,12 @@ public class GetFoodProductsQueryValidator : AbstractValidator<GetFoodProductsQu
         var allowedFields = new[] { "Created", "LastModified", "Name", "Price" };
 
         // Rule for validating the 'OrderBy' field
-        RuleFor(query => query.OrderBy)
+        AddRules(rule =>
+        {
+            rule.RuleFor(query => query.OrderBy)
             .Must(orderBy => string.IsNullOrEmpty(orderBy) || allowedFields.Contains(orderBy, StringComparer.OrdinalIgnoreCase))
             .WithMessage(query => $"Invalid 'OrderBy' field '{query.OrderBy}'. Allowed fields are: {string.Join(", ", allowedFields)}");
+        });
+       
     }
 }

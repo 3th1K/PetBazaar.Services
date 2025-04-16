@@ -1,5 +1,5 @@
-﻿using Ethik.Utility.CQRS;
-using FluentValidation;
+﻿using Ethik.Utility.Api.Validation;
+using Ethik.Utility.CQRS;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 

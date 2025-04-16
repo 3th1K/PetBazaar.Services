@@ -1,4 +1,5 @@
 using Ethik.Utility.Api.Extensions;
+using Ethik.Utility.Api.Validation;
 using Ethik.Utility.Common.Extentions;
 using InventoryService.Application.DependencyInjection;
 using InventoryService.Infrastructure.DependencyInjection;
@@ -25,6 +26,9 @@ builder.Services
 
 //global exception handler
 builder.Services.AddGlobalExceptionHandler();
+builder.Services.AddAutoValidation(c => 
+    c.HandleValidationResult = true
+);
 
 //enforce lower case routes
 builder.Services.Configure<RouteOptions>(options =>
