@@ -1,4 +1,5 @@
-﻿using MassTransit;
+﻿
+using Ethik.Utility.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using ProductService.Domain.Interfaces;
 using ProductService.Infrastructure.Repositories;
@@ -32,14 +33,17 @@ public static class DependencyInjection
         services.AddSingleton<IFoodProductRepository, FoodProductRepository>();
 
         // Register the event publisher
-        services.AddScoped<IEventPublisher, MassTransitEventPublisher>();
+        services.AddScoped<IEventPublisher, RabbitMqEventPublisher>();
 
-        // Configure MassTransit with RabbitMQ
-        services.AddMassTransit(x =>
+        // Configure messaging with RabbitMQ
+        services.AddMessaging(cfg =>
         {
-            x.UsingRabbitMq((context, cfg) =>
+            cfg.UseRabbitMQ(rabbitConfig =>
             {
-                cfg.Host("rabbitmq://localhost");
+                rabbitConfig.HostName = "localhost";
+                rabbitConfig.Port = 5672;
+                rabbitConfig.UserName = "guest";
+                rabbitConfig.Password = "guest";
             });
         });
 

@@ -1,7 +1,7 @@
 ﻿using Ethik.Utility.Common.Extentions;
+using Ethik.Utility.Messaging;
 using InventoryService.Domain.Interfaces;
 using InventoryService.Domain.Models;
-using MassTransit;
 using Microsoft.Extensions.Logging;
 using PetBazaar.Shared.Events;
 
@@ -10,7 +10,7 @@ namespace InventoryService.Infrastructure.Consumers;
 /// <summary>
 /// Consumes the <see cref="ProductAdded"/> event to initialize inventory for a newly added product.
 /// </summary>
-public class ProductAddedConsumer : IConsumer<ProductAdded>
+public class ProductAddedConsumer : IMessageConsumer<ProductAdded>
 {
     private readonly ILogger<ProductAddedConsumer> _logger;
     private readonly IInventoryRepository _inventoryRepository;
@@ -26,17 +26,9 @@ public class ProductAddedConsumer : IConsumer<ProductAdded>
         _inventoryRepository = inventoryRepository;
     }
 
-    /// <summary>
-    /// Handles the <see cref="ProductAdded"/> event by initializing inventory for the newly added product.
-    /// </summary>
-    /// <param name="context">The context containing the <see cref="ProductAdded"/> event data.</param>
-    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    /// <remarks>
-    /// This method creates an initial inventory entry with zero stock for the newly added product.
-    /// </remarks>
-    public async Task Consume(ConsumeContext<ProductAdded> context)
+    public async Task<bool> ConsumeAsync(ProductAdded message, IMessageContext context, CancellationToken token)
     {
-        var product = context.Message;
+        var product = message;
 
         _logger.Information($"Received ProductAdded event for ProductId: {product.ProductId}");
 
@@ -55,9 +47,15 @@ public class ProductAddedConsumer : IConsumer<ProductAdded>
         var dbResult = await _inventoryRepository.AddAsync(inventoryItem);
 
         if (dbResult.IsSuccess)
+        {
             _logger.Information($"Stock initialized for ProductId: {product.ProductId} with {initialStock} units");
+            return true;
+        }
         else
+        {
             _logger.Error($"Unable to initialize stock for ProductId: {product.ProductId}");
+            return false;
+        }
 
         // Publish a StockUpdated event if needed
         //await context.Publish(new StockUpdated(product.ProductId, initialStock));

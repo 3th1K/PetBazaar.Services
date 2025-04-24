@@ -8,12 +8,11 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.0" />
-		<PackageReference Include="MassTransit.AspNetCore" Version="7.3.1" />
-		<PackageReference Include="MassTransit.RabbitMQ" Version="8.3.3" />
 	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\Ethik.Utility\Src\Ethik.Utility.Common\Ethik.Utility.Common.csproj" />
+    <ProjectReference Include="..\..\..\..\..\..\Ethik.Utility\Src\Ethik.Utility.Messaging\Ethik.Utility.Messaging.csproj" />
     <ProjectReference Include="..\..\..\Common\PetBazaar.Shared\PetBazaar.Shared.csproj" />
     <ProjectReference Include="..\InventoryService.Domain\InventoryService.Domain.csproj" />
   </ItemGroup>

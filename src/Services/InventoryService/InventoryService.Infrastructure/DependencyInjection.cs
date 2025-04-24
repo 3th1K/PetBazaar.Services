@@ -1,8 +1,9 @@
-﻿using InventoryService.Domain.Interfaces;
+﻿using Ethik.Utility.Messaging;
+using InventoryService.Domain.Interfaces;
 using InventoryService.Infrastructure.Consumers;
 using InventoryService.Infrastructure.Repositories;
-using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
+using PetBazaar.Shared.Events;
 
 namespace InventoryService.Infrastructure.DependencyInjection;
 
@@ -30,40 +31,20 @@ public static class DependencyInjection
         // Register the inventory repository
         services.AddSingleton<IInventoryRepository, InventoryRepository>();
 
-        // Configure MassTransit with RabbitMQ
-        services.AddMassTransit(x =>
+        // Configure Messaging with RabbitMQ
+        services.AddMessaging(cfg =>
         {
-            // Register the ProductAddedConsumer
-            x.AddConsumer<ProductAddedConsumer>();
-
-            // Configure RabbitMQ
-            x.UsingRabbitMq((context, cfg) =>
+            cfg.AddConsumer<ProductAddedConsumer>();
+            cfg.UseRabbitMQ(rabbitConfig =>
             {
-                // Set the RabbitMQ host
-                cfg.Host("rabbitmq://localhost");
-
-                // Configure the receive endpoint for the inventory service
-                cfg.ReceiveEndpoint("inventory-service", e =>
-                {
-                    // Configure the consumer
-                    e.ConfigureConsumer<ProductAddedConsumer>(context);
-
-                    // Configure message retry
-                    e.UseMessageRetry(r =>
-                    {
-                        r.Interval(3, TimeSpan.FromSeconds(5));
-                    });
-
-                    // TODO: Configure dead-letter queue (DLQ) settings if needed
-                    //e.DeadLetterExchange = "inventory-service-dlq";
-                    //e.BindDeadLetterQueue("inventory-service-dlq");
-                    //e.ConfigureDeadLetter(dl =>
-                    //{
-                    //    dl.QueueName = "inventory-service-dlq";
-                    //    dl.RethrowFaultedMessages();
-                    //    dl.UseDelayedRedelivery(r => r.Intervals(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(30)));
-                    //});
-                });
+                rabbitConfig.HostName = "localhost";
+                rabbitConfig.Port = 5672;
+                rabbitConfig.UserName = "guest";
+                rabbitConfig.Password = "guest";
+                rabbitConfig.ListeningQueues = ["queue.inventory"];
+                rabbitConfig.PrefetchCount = 10;
+                rabbitConfig.RetryPolicy = new RetryPolicy { MaxRetryAttempts = 5, BackoffExponent = 1.5, InitialDelay = TimeSpan.FromSeconds(1) };
+                rabbitConfig.NumberOfWorkers = 5;
             });
         });
 

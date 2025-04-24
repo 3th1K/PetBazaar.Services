@@ -6,7 +6,7 @@ using PetBazaar.Shared.Events;
 using ProductService.Application.Extensions.Mappings;
 using ProductService.Application.Features.Food.Commands;
 using ProductService.Domain.Interfaces;
-
+using PetBazaar.Shared.Constants;
 namespace ProductService.Application.Features.Food.Handlers;
 
 /// <summary>
@@ -53,7 +53,7 @@ public sealed class AddFoodProductHandler : IRequestHandler<AddFoodProductComman
             // Publish a ProductAdded event
             var @event = new ProductAdded(result.Data);
             _logger.Information("Publishing event @ProductAdded");
-            await _eventPublisher.Publish(@event, cancellationToken);
+            await _eventPublisher.Publish(@event, MessagingConstants.InventoryExchange,cancellationToken);
             _logger.Information("Published event @ProductAdded");
         }
         else if (!result.IsSuccess)
